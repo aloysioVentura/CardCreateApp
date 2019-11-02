@@ -1,10 +1,10 @@
 <template>
   <div class="card p-3 app-card-create">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-10">
         <h1 class="mb-3">Create Your App</h1>
       </div>
-      <div class="col-md-4">
+      <div class="col-2">
         <a href="#" class="close" @click.stop="finish">
           <span>&times;</span>
         </a>
