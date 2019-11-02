@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="d-flex flex-column justify-content-center align-items-center app-main-container">
   <router-view></router-view>
   </div>
 </template>
@@ -14,6 +14,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
-
+<style scoped>
+.app-main-container{
+    height: 100vh;
+}
 </style>
