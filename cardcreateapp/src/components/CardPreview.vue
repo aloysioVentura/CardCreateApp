@@ -1,7 +1,7 @@
 <template>
   <div class="app-card-container text-left">
     <label>APP'S CARD PREVIEW</label>
-    <div class="card p-3">
+    <div class="card p-3"  :style="color">
       <img :src="logo" class="img-fluid" alt="">
     <strong>{{ name || 'App Name'}}</strong>
       <div class="text-muted">
@@ -23,6 +23,9 @@ export default {
     },
     logo () {
       return this.$store.getters.logo ? this.$store.getters.logo.url : ''
+    },
+    color () {
+      return { 'background-color': (this.$store.getters.color || '#fff') }
     }
   }
 }

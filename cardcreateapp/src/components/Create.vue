@@ -15,7 +15,7 @@
         <form action enctype="multipart/form-data">
           <InputText v-model="name" :label="'app name'"></InputText>
           <InputFile v-model="logo" :label="'app icon'"></InputFile>
-          <InputColor :label="'icon\'s background color'"></InputColor>
+          <InputColor v-model="color" :label="'icon\'s background color'"></InputColor>
           <InputSelect v-model="category" :label="'category'" :options="categories"></InputSelect>
         </form>
       </div>

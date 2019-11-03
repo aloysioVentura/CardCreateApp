@@ -9,7 +9,7 @@ export const store = new Vuex.Store({
       name: '',
       category: '',
       logo: null,
-      color: ''
+      color: '#fff'
     },
     apps: []
   },
@@ -45,6 +45,6 @@ export const store = new Vuex.Store({
     name: state => state.newApp.name,
     category: state => state.newApp.category,
     logo: state => state.newApp.logo,
-    collor: state => state.newApp.color
+    color: state => state.newApp.color
   }
 })
