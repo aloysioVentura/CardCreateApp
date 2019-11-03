@@ -3,6 +3,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'
 import { routes } from './routes'
 import BootstrapVue from 'bootstrap-vue'
+import { store } from './store/store'
 import './custom.scss'
 
 Vue.use(BootstrapVue)
@@ -14,5 +15,6 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')

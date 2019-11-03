@@ -1,7 +1,7 @@
 <template>
 <div>
-Fim!!
-<router-link to="/create">Começar novamente</router-link>
+Success!
+<router-link to="/create">Create another app</router-link>
     </div>
 </template>
 

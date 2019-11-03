@@ -12,10 +12,10 @@
     </div>
     <div class="row">
       <div class="col-12 col-sm-8">
-        <InputText></InputText>
+        <InputText v-model="name"></InputText>
         <InputFile></InputFile>
         <InputColor></InputColor>
-        <InputSelect></InputSelect>
+        <InputSelect v-model="category" :options="categories"></InputSelect>
       </div>
       <div class="col-12 col-sm-4 text-center app-card-preview-container">
         <CardPreview></CardPreview>
@@ -37,6 +37,37 @@ export default {
       this.$router.push({ path: '/success' })
     }
   },
+  data () {
+    return {
+      categories: [
+        'Web Hosting and E-Commerce',
+        'Communication Platform',
+        'Customer Relationship Management',
+        'Accounting',
+        'Payment Gateways',
+        'Human Resources',
+        'Project Management'
+      ]
+    }
+  },
+  computed: {
+    name: {
+      get () {
+        return this.$store.state.newApp.name
+      },
+      set (value) {
+        this.$store.dispatch('onChangeName', value)
+      }
+    },
+    category: {
+      get () {
+        return this.$store.state.newApp.category
+      },
+      set (value) {
+        this.$store.dispatch('onChangeCategory', value)
+      }
+    }
+  },
   components: {
     InputText,
     CardPreview,
@@ -49,7 +80,7 @@ export default {
 
 <style scoped>
 .close {
-  line-height: .5;
+  line-height: 0.5;
   width: 15px;
   align-self: flex-end;
 }
@@ -63,9 +94,9 @@ h1 {
 .app-btn-create {
   width: 100%;
 }
-   .app-card-preview-container{
-     border-top: solid 1px
-   }
+.app-card-preview-container {
+  border-top: solid 1px;
+}
 @media (min-width: 576px) {
   .app-card-create {
     width: auto;
@@ -77,9 +108,9 @@ h1 {
     max-width: 180px;
     width: 100%;
   }
-   .app-card-preview-container{
-     border-top: none;
-     border-left: solid 1px
-   }
+  .app-card-preview-container {
+    border-top: none;
+    border-left: solid 1px;
+  }
 }
 </style>
