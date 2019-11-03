@@ -16,6 +16,6 @@ export default {
 
 <style scoped>
 .app-main-container{
-    height: 100vh;
+    min-height: 100vh;
 }
 </style>

@@ -8,7 +8,7 @@ export const store = new Vuex.Store({
     newApp: {
       name: '',
       category: '',
-      logo: {},
+      logo: null,
       color: ''
     },
     apps: []
@@ -19,6 +19,12 @@ export const store = new Vuex.Store({
     },
     changeCategory (state, category) {
       state.newApp.category = category
+    },
+    changeColor (state, color) {
+      state.newApp.color = color
+    },
+    changeLogo (state, logo) {
+      state.newApp.logo = logo
     }
   },
   actions: {
@@ -27,10 +33,18 @@ export const store = new Vuex.Store({
     },
     onChangeCategory ({ commit }, category) {
       commit('changeCategory', category)
+    },
+    onChangeColor ({ commit }, color) {
+      commit('changeColor', color)
+    },
+    onChangeLogo ({ commit }, logo) {
+      commit('changeLogo', logo)
     }
   },
   getters: {
     name: state => state.newApp.name,
-    category: state => state.newApp.category
+    category: state => state.newApp.category,
+    logo: state => state.newApp.logo,
+    collor: state => state.newApp.color
   }
 })
