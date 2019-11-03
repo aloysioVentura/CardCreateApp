@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-          <label>Label</label>
+          <label>{{label}}</label>
           <div class="color-picker form-control form-control-lg">
 
         </div>
@@ -9,6 +9,6 @@
 
 <script>
 export default {
-
+  props: ['label']
 }
 </script>

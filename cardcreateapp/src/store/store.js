@@ -6,9 +6,9 @@ Vue.use(Vuex)
 export const store = new Vuex.Store({
   state: {
     newApp: {
-      name: 'company',
+      name: '',
       category: '',
-      logo: undefined,
+      logo: {},
       color: ''
     },
     apps: []

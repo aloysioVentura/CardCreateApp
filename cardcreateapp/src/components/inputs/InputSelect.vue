@@ -1,6 +1,6 @@
 <template>
     <div class="form-group">
-        <label>Label</label>
+        <label>{{label}}</label>
         <select @input="changed($event.target.value)" :value="value" class="form-control">
             <option v-for="option in options" v-bind:key="option">{{option}}</option>
         </select>
@@ -9,10 +9,9 @@
 </template>
 <script>
 export default {
-  props: ['value', 'options'],
+  props: ['value', 'options', 'label'],
   methods: {
     changed (value) {
-      console.log('this.value')
       this.$emit('input', value)
     }
   }

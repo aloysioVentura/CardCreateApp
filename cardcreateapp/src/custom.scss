@@ -3,3 +3,10 @@ $primary: $teal;
 $body-bg: #eeeeee;
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
+
+
+
+label{
+    font-weight: bold;
+    text-transform: uppercase;
+}

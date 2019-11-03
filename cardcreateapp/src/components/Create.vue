@@ -1,23 +1,23 @@
 <template>
-  <div class="card p-3 app-card-create">
+  <div class="card p-5 app-card-create">
     <div class="row">
       <div class="col-10">
         <h1 class="mb-3">Create Your App</h1>
       </div>
       <div class="col-2">
-        <a href="#" class="close" @click.stop="finish">
+        <a href="#" class="close" @click.stop="cancel">
           <span>&times;</span>
         </a>
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-sm-8">
-        <InputText v-model="name"></InputText>
-        <InputFile></InputFile>
-        <InputColor></InputColor>
-        <InputSelect v-model="category" :options="categories"></InputSelect>
+      <div class="col-12 col-sm-6 col-lg-8 pr-sm-5">
+        <InputText v-model="name" :label="'app name'"></InputText>
+        <InputFile :label="'app icon'"></InputFile>
+        <InputColor :label="'icon\'s background color'"></InputColor>
+        <InputSelect v-model="category" :label="'category'" :options="categories"></InputSelect>
       </div>
-      <div class="col-12 col-sm-4 text-center app-card-preview-container">
+      <div class="col-12 col-sm-6 col-lg-4 pl-sm-5 text-center app-card-preview-container pt-3 pt-sm-0">
         <CardPreview></CardPreview>
         <button class="btn btn-primary mt-3 app-btn-create" @click="finish">SAVE APP</button>
       </div>
@@ -33,6 +33,16 @@ import InputColor from './inputs/InputColor.vue'
 import CardPreview from './CardPreview.vue'
 export default {
   methods: {
+    cancel () {
+      this.$bvModal.msgBoxConfirm('Do you really want to close? all your changes will be lost...', { okTitle: 'YES',
+        cancelTitle: 'NO',
+        size: 'sm' })
+        .then(result => {
+          if (result) {
+            this.$router.push({ path: '/' })
+          }
+        })
+    },
     finish () {
       this.$router.push({ path: '/success' })
     }
@@ -95,7 +105,7 @@ h1 {
   width: 100%;
 }
 .app-card-preview-container {
-  border-top: solid 1px;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
 }
 @media (min-width: 576px) {
   .app-card-create {
@@ -110,7 +120,7 @@ h1 {
   }
   .app-card-preview-container {
     border-top: none;
-    border-left: solid 1px;
+    border-left: 1px solid rgba(0, 0, 0, 0.125);
   }
 }
 </style>

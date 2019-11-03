@@ -1,11 +1,12 @@
 <template>
   <div class="app-card-container text-left">
     <label>APP'S CARD PREVIEW</label>
-    <div class="card">
-      <h2>{{ name }}</h2>
+    <div class="card p-3">
+    <strong>{{ name }}</strong>
       <div class="text-muted">
         {{ category }}
       </div>
+      <div class="text-success">New App</div>
       </div>
   </div>
 </template>
