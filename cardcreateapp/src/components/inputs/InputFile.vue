@@ -1,12 +1,21 @@
 <template>
-  <div class="form-group">
-    <label>{{label}}</label>
+  <div class="form-group app-input-file">
+    <label class="form-label">{{label}}</label>
     <b-form-file
       :value="value"
       @input="changed($event)"
       size="lg"
-      placeholder="Choose a file or drop it here..."
-      drop-placeholder="Drop file here..."
+      placeholder="Select a File"
+      drop-placeholder="Drop file here"
+      class=" d-block d-sm-none"
+    ></b-form-file>
+        <b-form-file
+      :value="value"
+      @input="changed($event)"
+      size="lg"
+      placeholder="Drag an image here to upload"
+      drop-placeholder="Drop file here"
+      class="d-none d-sm-block"
     ></b-form-file>
   </div>
 </template>

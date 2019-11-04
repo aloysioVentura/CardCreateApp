@@ -6,7 +6,29 @@ $body-bg: #eeeeee;
 
 
 
-label{
+label.form-label{
     font-weight: bold;
     text-transform: uppercase;
 }
+
+.b-custom-control-lg label.custom-file-label{
+    font-size: 16px;
+    line-height: 2.5em;
+    height: calc(2.5em + 1rem + 2px);
+
+    &:after{
+    font-size: inherit;
+    height: calc( 1.5em + 1rem);
+    border-radius: 0.3rem;
+    margin: 7.5px;
+    border: none;
+
+    }
+  }
+  div.b-custom-control-lg.custom-file{
+    height: calc(2.0em + 1rem + 2px);
+  }
+
+  .custom-file-input:lang(en) ~ .custom-file-label::after {
+    content: 'SELECT A FILE';
+  }

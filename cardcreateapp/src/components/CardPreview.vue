@@ -1,10 +1,10 @@
 <template>
   <div class="app-card-container text-left">
-    <label>APP'S CARD PREVIEW</label>
+    <label><strong>APP'S CARD PREVIEW</strong></label>
     <div class="card">
       <div class="row no-gutters">
         <div
-          class="col-4 col-sm-12 p-3 d-flex justify-content-center align-items-center"
+          class="col-4 col-sm-12 p-3 d-flex justify-content-center align-items-center logo-container"
           :style="color"
         >
           <div :style="logo" class="icon-img"></div>
@@ -12,7 +12,7 @@
         <div class="col-8 col-sm-12 p-3">
           <strong class="card-title">{{ name || 'App Name'}}</strong>
           <div class="text-muted">{{ category || 'App Category'}}</div>
-          <div class="text-success">New App</div>
+          <div class="text-success"><small>New App</small></div>
         </div>
       </div>
     </div>
@@ -21,27 +21,36 @@
 
 <script>
 export default {
+  props: ['app'],
   computed: {
     name () {
-      return this.$store.getters.name
+      return this.app.name
     },
     category () {
-      return this.$store.getters.category
+      return this.app.category
     },
     logo () {
       return {
-        'background-color': this.$store.getters.color || '#fff',
-        'background-image': 'url(' + (this.$store.getters.logo ? this.$store.getters.logo.url : '') + ')'
+        'background-color': this.app.color || '#fff',
+        'background-image': 'url(' + (this.app.logo ? this.app.logo.url : '') + ')'
       }
     },
     color () {
-      return { 'background-color': this.$store.getters.color || '#fff' }
+      return { 'background-color': this.app.color || '#fff' }
     }
   }
 }
 </script>
 
 <style>
+.logo-container{
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.card-title{
+  font-size: 18px;
+}
+
 .icon-img {
   width: 70px;
   height: 70px;
@@ -52,6 +61,10 @@ export default {
 }
 
 @media (min-width: 576px) {
+  .logo-container{
+    border-radius: 0.25rem 0.25rem 0 0;
+  }
+
   .icon-img {
   width: 120px;
   height: 120px;

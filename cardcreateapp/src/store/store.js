@@ -25,6 +25,23 @@ export const store = new Vuex.Store({
     },
     changeLogo (state, logo) {
       state.newApp.logo = logo
+    },
+    clearNewApp (state) {
+      state.newApp = {
+        name: '',
+        category: '',
+        logo: null,
+        color: '#191919'
+      }
+    },
+    finishAppCreate (state) {
+      state.apps.push({ ...state.newApp })
+      state.newApp = {
+        name: '',
+        category: '',
+        logo: null,
+        color: '#191919'
+      }
     }
   },
   actions: {
@@ -39,12 +56,27 @@ export const store = new Vuex.Store({
     },
     onChangeLogo ({ commit }, logo) {
       commit('changeLogo', logo)
+    },
+    onLeaveAppCreate ({ commit }) {
+      commit('clearNewApp')
+    },
+    onFinishAppCreate ({ commit }, app) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(app)
+          commit('finishAppCreate')
+          resolve()
+        }, 1000)
+      })
     }
   },
   getters: {
     name: state => state.newApp.name,
     category: state => state.newApp.category,
     logo: state => state.newApp.logo,
-    color: state => state.newApp.color
+    color: state => state.newApp.color,
+    isNewAppValid: state => {
+      return state.newApp.name && state.newApp.category && state.newApp.logo && state.newApp.color
+    }
   }
 })

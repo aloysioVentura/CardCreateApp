@@ -1,5 +1,5 @@
 <template>
-  <div class="card p-5 app-card-create">
+  <div class="card p-3 p-md-5 app-card-create">
     <div class="row">
       <div class="col-10">
         <h1 class="mb-3">Create Your App</h1>
@@ -11,19 +11,22 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 col-sm-6 col-lg-8 pr-sm-5">
-        <form action enctype="multipart/form-data">
-          <InputText v-model="name" :label="'app name'"></InputText>
+      <div class="col-12 col-sm-6 col-md-8 pr-md-5">
+        <b-alert v-model="showAlert" variant="danger" dismissible>
+          Fill the missing inputs...
+        </b-alert>
+        <form enctype="multipart/form-data">
+          <InputText v-model="name" :placeholder="'Enter App Display Name'" :required="true" :label="'app name'"></InputText>
           <InputFile v-model="logo" :label="'app icon'"></InputFile>
           <InputColor v-model="color" :label="'icon\'s background color'"></InputColor>
           <InputSelect v-model="category" :label="'category'" :options="categories"></InputSelect>
         </form>
       </div>
       <div
-        class="col-12 col-sm-6 col-lg-4 pl-sm-5 text-center app-card-preview-container pt-3 pt-sm-0"
+        class="col-12 col-sm-6 col-md-4 pl-md-5 text-center app-card-preview-container pt-3 pt-sm-0"
       >
-        <CardPreview></CardPreview>
-        <button class="btn btn-primary mt-3 app-btn-create" @click="finish">SAVE APP</button>
+        <CardPreview :app="app"></CardPreview>
+        <button class="btn btn-primary mt-4 app-btn-create" @click="finish">SAVE APP</button>
       </div>
     </div>
   </div>
@@ -45,12 +48,21 @@ export default {
         )
         .then(result => {
           if (result) {
+            this.$store.dispatch('onLeaveAppCreate')
             this.$router.push({ path: '/' })
           }
         })
     },
     finish () {
-      this.$router.push({ path: '/success' })
+      this.showAlert = false
+      if (this.isValid) {
+        this.$store.dispatch('onFinishAppCreate', this.$store.state.newApp)
+          .then(() => {
+            this.$router.push({ path: '/success' })
+          })
+      } else {
+        this.showAlert = true
+      }
     }
   },
   data () {
@@ -63,7 +75,8 @@ export default {
         'Payment Gateways',
         'Human Resources',
         'Project Management'
-      ]
+      ],
+      showAlert: false
     }
   },
   computed: {
@@ -98,6 +111,12 @@ export default {
       set (value) {
         this.$store.dispatch('onChangeColor', value)
       }
+    },
+    isValid () {
+      return this.$store.getters.isNewAppValid
+    },
+    app () {
+      return this.$store.state.newApp
     }
   },
   components: {
@@ -133,7 +152,8 @@ h1 {
   .app-card-create {
     width: auto;
     min-width: 546px;
-    width: calc(100vw - 10rem);
+    max-width: 946px;
+    width: calc(100vw - 2rem);
     height: auto;
   }
   .app-btn-create {

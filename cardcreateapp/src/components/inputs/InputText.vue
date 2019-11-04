@@ -1,13 +1,12 @@
 <template>
     <div class="form-group">
-        <label>{{label}}</label>
-        <input type="text" @input="changed($event.target.value)" :value="value" class="form-control"/>
-        <small class="form-text text-muted">There're some problems here</small>
+        <label class="form-label">{{label}}</label>
+        <input type="text" @input="changed($event.target.value)" :placeholder="placeholder" :value="value" :required="required" class="form-control"/>
     </div>
 </template>
 <script>
 export default {
-  props: ['value', 'label'],
+  props: ['value', 'label', 'required', 'placeholder'],
   methods: {
     changed (value) {
       this.$emit('input', value)
