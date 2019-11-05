@@ -2,6 +2,9 @@
   <div class="text-center">
     <h1>Let's create your app!</h1>
     <router-link tag="button" class="btn btn-primary" to="/create">Begin!</router-link>
+        <div>
+      <button @click="goToList" class="btn btn-link mt-5">list</button>
+    </div>
     <div>
       <button @click="logout" class="btn btn-link mt-5">logout</button>
     </div>
@@ -17,6 +20,9 @@ export default {
         .then(() => {
           this.$router.replace('login')
         })
+    },
+    goToList () {
+      this.$router.replace('list')
     }
   }
 }
