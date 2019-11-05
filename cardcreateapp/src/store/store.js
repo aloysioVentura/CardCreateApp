@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import firebase from 'firebase'
 
 Vue.use(Vuex)
 
@@ -42,6 +43,9 @@ export const store = new Vuex.Store({
         logo: null,
         color: '#191919'
       }
+    },
+    updateApps (state, apps) {
+      state.apps = apps
     }
   },
   actions: {
@@ -61,16 +65,46 @@ export const store = new Vuex.Store({
       commit('clearNewApp')
     },
     onFinishAppCreate ({ commit }, app) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          console.log(app)
+      let key
+      firebase.database().ref('apps').push(app)
+        .then((data) => {
+          key = data.key
+          return key
+        })
+        .then(key => {
+          const fileName = app.logo.name
+          const ext = fileName.slice(fileName.lastIndexOf('.'))
+          return firebase.storage().ref('logos/' + key + '.' + ext).put(app.logo)
+        })
+        .then(fileData => {
+          return firebase.storage().ref(fileData.metadata.fullPath).getDownloadURL()
+        })
+        .then(imageUrl => {
+          app.logo = { 'name': app.logo.name, 'url': imageUrl }
+          return firebase.database().ref('apps').child(key).update({ logo: { 'name': app.logo.name, 'url': imageUrl } })
+        }).then(() => {
           commit('finishAppCreate')
-          resolve()
-        }, 1000)
-      })
+        })
+    },
+    onLoadApps  ({ commit }) {
+      firebase.database().ref('apps').once('value')
+        .then((data) => {
+          const apps = []
+          const obj = data.val()
+          for (let key in obj) {
+            apps.push({
+              name: obj[key].name,
+              category: obj[key].category,
+              logo: obj[key].logo,
+              color: obj[key].color
+            })
+            commit('updateApps', apps)
+          }
+        })
     }
   },
   getters: {
+    apps: state => state.apps,
     name: state => state.newApp.name,
     category: state => state.newApp.category,
     logo: state => state.newApp.logo,
