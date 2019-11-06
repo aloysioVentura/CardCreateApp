@@ -12,11 +12,14 @@
     </div>
     <div class="row">
       <div class="col-12 col-sm-6 col-md-8 pr-md-5">
-        <b-alert v-model="showAlert" variant="danger" dismissible>
-          Fill the missing inputs...
-        </b-alert>
+        <b-alert v-model="showAlert" variant="danger" dismissible>Fill the missing inputs...</b-alert>
         <form enctype="multipart/form-data">
-          <InputText v-model="name" :placeholder="'Enter App Display Name'" :required="true" :label="'app name'"></InputText>
+          <InputText
+            v-model="name"
+            :placeholder="'Enter App Display Name'"
+            :required="true"
+            :label="'app name'"
+          ></InputText>
           <InputFile v-model="logo" :label="'app icon'"></InputFile>
           <InputColor v-model="color" :label="'icon\'s background color'"></InputColor>
           <InputSelect v-model="category" :label="'category'" :options="categories"></InputSelect>
@@ -24,7 +27,13 @@
       </div>
       <div
         class="col-12 col-sm-6 col-md-4 pl-md-5 text-center app-card-preview-container pt-3 pt-sm-0"
+        :class="isMobile ? 'fix-bottom' : ''"
       >
+        <div class="text-left">
+          <label>
+            <strong>APP'S CARD PREVIEW</strong>
+          </label>
+        </div>
         <CardPreview :app="app"></CardPreview>
         <button class="btn btn-primary mt-4 app-btn-create" @click="finish">SAVE APP</button>
       </div>
@@ -56,7 +65,8 @@ export default {
     finish () {
       this.showAlert = false
       if (this.isValid) {
-        this.$store.dispatch('onFinishAppCreate', this.$store.state.newApp)
+        this.$store
+          .dispatch('onFinishAppCreate', this.$store.state.newApp)
           .then(() => {
             this.$router.push({ path: '/success' })
           })
@@ -115,6 +125,9 @@ export default {
     isValid () {
       return this.$store.getters.isNewAppValid
     },
+    isMobile () {
+      return this.$store.getters.isMobileAccess
+    },
     app () {
       return this.$store.state.newApp
     }
@@ -130,6 +143,14 @@ export default {
 </script>
 
 <style scoped>
+.fix-bottom{
+  position: sticky;
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999
+}
 .close {
   line-height: 0.5;
   width: 15px;
@@ -140,7 +161,7 @@ h1 {
 }
 .app-card-create {
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
 }
 .app-btn-create {
   width: 100%;
@@ -155,6 +176,7 @@ h1 {
     max-width: 946px;
     width: calc(100vw - 2rem);
     height: auto;
+    min-height: 0
   }
   .app-btn-create {
     max-width: 180px;

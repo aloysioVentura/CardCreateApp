@@ -2,7 +2,7 @@
   <div class="form-group">
     <label class="form-label">{{label}}</label>
     <div  id="popover" class="input-group input-group-lg mb-3">
-  <input type="text" class="form-control" placeholder="Pick a color">
+  <input type="text" disabled class="form-control" placeholder="Pick a color">
   <div class="input-group-append">
     <span class="input-group-text text-white" id="basic-addon2" :style="color">{{value}}</span>
   </div>
@@ -41,5 +41,6 @@ export default {
 .input-group-lg > input.form-control:not(textarea){
   font-size: 16px;
   height: calc(2.5em + 1rem + 2px);
+  background-color: white;
 }
 </style>

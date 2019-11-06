@@ -1,13 +1,19 @@
 <template>
-<div class="row list">
-<div class="col-md-4" v-for="app in apps" :key="app">
-    <CardPreview :app="app"></CardPreview>
+<div class="list-container container">
+  <h1 v-if="!isLoading" class="h2 my-4"><router-link to="/welcome">&lt;</router-link> Apps</h1>
+  <hr>
+  <div class="row list mt-4">
+    <div class="col-md-4" v-for="(app, index) in apps" :key="index">
+      <CardPreview :app="app" class="mb-4"></CardPreview>
+    </div>
   </div>
+  <div v-if="!apps.length && !isLoading" class="text-center text-muted p-5">No app added yet!</div>
 </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
 import CardPreview from './CardPreview.vue'
 export default {
   data () {
@@ -34,6 +40,9 @@ export default {
   computed: {
     apps () {
       return this.$store.getters.apps
+    },
+    isLoading () {
+      return this.$store.state.isLoading
     }
   },
   created () {
@@ -42,14 +51,11 @@ export default {
 }
 </script>
 <style scoped>
-  .list{
-    width: 100%
-  }
+.list-container{
+  height: 100vh;
+}
   @media (min-width: 576px) {
     .list {
-      min-width: 546px;
-      max-width: 946px;
-      width: calc(100vw - 2rem);
       height: auto;
     }
   }

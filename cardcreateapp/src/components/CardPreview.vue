@@ -1,6 +1,5 @@
 <template>
   <div class="app-card-container text-left">
-    <label><strong>APP'S CARD PREVIEW</strong></label>
     <div class="card">
       <div class="row no-gutters">
         <div
