@@ -20,7 +20,7 @@
             :required="true"
             :label="'app name'"
           ></InputText>
-          <InputFile v-model="logo" :label="'app icon'"></InputFile>
+          <InputFile v-model="logo" :accept="['.png', '.jpeg', '.jpg', '.gif', '.tiff']" :label="'app icon'"></InputFile>
           <InputColor v-model="color" :label="'icon\'s background color'"></InputColor>
           <InputSelect v-model="category" :label="'category'" :options="categories"></InputSelect>
         </form>
